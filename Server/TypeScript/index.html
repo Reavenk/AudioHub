@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>My First Page</title>
+        <!-- Import IndexApp.js as module-->
+        <script type="module">
+            // Get IndexApp object
+            import { IndexApp } from './js/IndexApp.js';
+            window.indexApp = new IndexApp();
+        </script>
+    </head>
+    <body>
+        <textarea id="out" name="output" rows="20" cols="50"></textarea>
+        <div id="login">
+            <h1>Login</h1>
+            <input type="text" id="username" placeholder="Username"/><br>
+            <input type="text" id="session" placeholder="Session"/><br>
+            <button id="connect">Connect</button>
+        </div>
+        <div id="connecting">
+            <h1>Connecting</h1>
+        </div>
+        <div id="connected">
+            <h1>Connected</h1>
+        </div>
+    </body>
+</html>
