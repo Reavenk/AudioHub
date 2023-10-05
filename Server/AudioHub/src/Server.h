@@ -119,7 +119,7 @@ enum class ConState
 /// AudioHub server.
 /// 
 /// - All text payloads are expected to be JSON messages in AudioHubs standard format.
-/// - All byte payloads are expected to be PCM.
+/// - All binary payloads are expected to be PCM.
 /// </summary>
 class Server
 {
