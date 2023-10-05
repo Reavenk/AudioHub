@@ -10,18 +10,45 @@ using json = nlohmann::json;
 
 const int TenthSecondSamples = SAMPLERATE / 10;
 
+/// <summary>
+/// A user who is logged into the server
+/// </summary>
 class WSUser
 {
 private:
+	/// <summary>
+	/// Unique ID of the user - used to address the user in the APIs.
+	/// </summary>
 	UIDTy uniqueID;
+
+	/// <summary>
+	/// The username.
+	/// </summary>
 	std::string name;
+
+	/// <summary>
+	/// The Websocket connection.
+	/// </summary>
 	WSConPtr wsCon;
+
+	/// <summary>
+	/// The chatroom the user is participating in.
+	/// </summary>
 	SessionPtr session;
 
+	/// <summary>
+	/// The mutual exclusion lock to access speakersAudioToMix.
+	/// </summary>
 	std::mutex speakersStreamMutex;
+
+	/// <summary>
+	/// Output audio buffer to process and stream to the user.
+	/// </summary>
 	std::map<WSUserPtr, SpeakerStreamPtr> speakersAudioToMix;
 
-	// The last time the stream was processed specifically for this stream.
+	/// <summary>
+	/// The last time the stream was processed specifically for this stream.
+	/// </summary>
 	long long lastStreamed;
 private:
 	SpeakerStreamPtr GetSpeakerStream(WSUserPtr user);

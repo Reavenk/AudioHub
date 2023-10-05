@@ -28,9 +28,7 @@ void WSH_querysession::OnMessage(
 	const json& data,
 	ServerLockedGuards& lockGuard)
 {
-	//NOTE: Currently unused
-	// But this message would give the client back
-	// info on their connection and session
+	//NOTE: Currently unimplemented/unused
 }
 
 REGISTER_WSH(WSH_querysession);

@@ -1,6 +1,10 @@
 #pragma once
 #include "IWSHandler.h"
 
+/// <summary>
+/// WS message handler for a user to send a JSON payload to
+/// a specific user.
+/// </summary>
 class WSH_forward : public IWSHandler
 {
 public:

@@ -1,6 +1,10 @@
 #pragma once
 #include "IWSHandler.h"
 
+/// <summary>
+/// WS message handler to query the server for information
+/// on their connection and session.
+/// </summary>
 class WSH_querysession : public IWSHandler
 {
 public:

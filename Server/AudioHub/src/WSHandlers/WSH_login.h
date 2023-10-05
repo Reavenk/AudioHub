@@ -1,6 +1,9 @@
 #pragma once
 #include "IWSHandler.h"
 
+/// <summary>
+/// WS message handler for a user to login to the server.
+/// </summary>
 class WSH_login : public IWSHandler
 {
 public:

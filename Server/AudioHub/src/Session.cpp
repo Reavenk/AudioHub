@@ -30,7 +30,6 @@ void SessionLockedGuards::Unlock(bool users)
 		if(this->usersLocks == 0)
 			stateMutex.unlock();
 	}
-
 }
 
 SessionLockedGuards::SessionLockedGuards(SessionPtr session)

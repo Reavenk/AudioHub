@@ -3,6 +3,9 @@
 #include <mutex>
 #include "Types.h"
 
+/// <summary>
+/// A collection of consecutive streaming audio packets.
+/// </summary>
 class SpeakerStream
 {
 	enum class ClaimReturn
@@ -15,15 +18,29 @@ class SpeakerStream
 		Finished
 	};
 private:
-	// The packets queued to stream
+	/// <summary>
+	/// The packets queued to stream
+	/// </summary>
 	std::queue<AudioPacketPtr> packets;
+
+	/// <summary>
+	/// Mutual exclusion guard for packets.
+	/// </summary>
 	mutable std::mutex packetsMutex;
 
-	// For the given streaming packet, what was the last sample that was written?
+	/// <summary>
+	/// For the given streaming packet, what was the last sample that was written?
+	/// </summary>
 	int streamCookie = 0;
 public:
-	// The mixing volume for this stream
+	/// <summary>
+	/// The mixing volume for this stream
+	/// </summary>
 	float volume = 0.75f;
+
+	/// <summary>
+	/// Sets of the stream is enabled. If false, the stream is muted.
+	/// </summary>
 	bool gate = true;
 
 public:

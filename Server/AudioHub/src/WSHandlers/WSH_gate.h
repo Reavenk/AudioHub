@@ -1,6 +1,10 @@
 #pragma once
 #include "IWSHandler.h"
 
+/// <summary>
+/// WS message handler for a user to set the gate (opposite of mute)
+/// setting for another player.
+/// </summary>
 class WSH_gate : public IWSHandler
 {
 public:

@@ -91,26 +91,57 @@ public:
 	ServerLockedGuardsDrop& operator=(const ServerLockedGuardsDrop&) = delete;
 };
 
+/// <summary>
+/// Running state of the server.
+/// </summary>
 enum class ConState
 {
+	/// <summary>
+	/// Server is not/no-longer running.
+	/// </summary>
 	Closed,
+	/// <summary>
+	/// Server is booting up.
+	/// </summary>
 	Initializing,
+	/// <summary>
+	/// Server is running.
+	/// </summary>
 	Open,
+	/// <summary>
+	/// Server is shutting down. Poll the connection state until Closed to detect
+	/// when shutdown is complete.
+	/// </summary>
 	ShuttingDown
 };
 
+/// <summary>
+/// AudioHub server.
+/// 
+/// - All text payloads are expected to be JSON messages in AudioHubs standard format.
+/// - All byte payloads are expected to be PCM.
+/// </summary>
 class Server
 {
 private:
 	std::thread* serverThread = nullptr;
 	WsServer server;
 	ConState conState = ConState::Closed;
+
+	/// <summary>
+	/// Counter for generating unique user ids.
+	/// </summary>
 	std::atomic<UIDTy> idCounter = 0;
 
 	std::map<std::string, SessionPtr> sessions;
 	std::mutex sessionContainersMutex;
 
+	/// <summary>
+	/// Connections that are not authorized yet.
+	/// Only these connections are allowed to send login requests.
+	/// </summary>
 	std::set<WSConPtr> unloggedConns;
+
 	std::map<WSConPtr, WSUserPtr> consToUsers;
 	std::map<int, WSUserPtr> idToUsers;
 	std::mutex userDataMutex;
@@ -127,6 +158,7 @@ public:
 	bool InitializeServer(int port, ServerLockedGuards& lockedGuards);
 	bool ShutdownServer(ServerLockedGuards& lockedGuards);
 
+	// Websocket handlers
 	void OnWS_Opened(WSConPtr wsCon);
 	void OnWS_Closed(WSConPtr wsCon, int code, const std::string& reason);
 	void OnWS_Message(WSConPtr wsCon, WSInMsgPtr wsInMsg);
@@ -137,6 +169,15 @@ public:
 	WSUserPtr GetUser(int id, ServerLockedGuards& lockGuards);
 	bool HasUser(int id, ServerLockedGuards& lockGuards);
 
+	/// <summary>
+	/// Transition a non-authorized connection to a logged in user.
+	/// </summary>
+	/// <param name="conToUpgrade">The connection</param>
+	/// <param name="username">The username</param>
+	/// <param name="sessionName">The starting session room name</param>
+	/// <param name="action"></param>
+	/// <param name="lockedGuards">Thread guard.</param>
+	/// <returns>The logged in user.</returns>
 	WSUserPtr ConvertToUser(WSConPtr conToUpgrade, const std::string& username, const std::string& sessionName, const std::string& action, ServerLockedGuards& lockedGuards);
 	bool LogoutUser(WSUserPtr user, ServerLockedGuards& lockedGuards);
 

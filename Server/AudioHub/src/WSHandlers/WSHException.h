@@ -1,6 +1,9 @@
 #include <exception>
 #include <string>
 
+/// <summary>
+/// Exceptions that occure while processing AudioHub websocket messages.
+/// </summary>
 class WSHException : public std::exception
 {
 public:

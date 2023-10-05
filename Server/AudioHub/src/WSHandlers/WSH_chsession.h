@@ -1,6 +1,10 @@
 #pragma once
 #include "IWSHandler.h"
 
+/// <summary>
+/// WS message handler for a user to requesting changing the chat session
+/// they're participating in.
+/// </summary>
 class WSH_chsession : public IWSHandler
 {
 public:

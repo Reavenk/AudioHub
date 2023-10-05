@@ -1,6 +1,10 @@
 #pragma once
 #include "IWSHandler.h"
 
+/// <summary>
+/// WS message handler for a user to change the mixing volume of
+/// a specific user.
+/// </summary>
 class WSH_volume : public IWSHandler
 {
 public:

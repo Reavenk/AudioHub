@@ -1,6 +1,9 @@
 #pragma once
 #include "IWSHandler.h"
 
+/// <summary>
+/// WS message handler for a user to log out of the server.
+/// </summary>
 class WSH_logout : public IWSHandler
 {
 public:

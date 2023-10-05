@@ -1,6 +1,10 @@
 #pragma once
 #include "IWSHandler.h"
 
+/// <summary>
+/// WS message handler for a user to reset the output mixing buffer for 
+/// specific users, or all other users.
+/// </summary>
 class WSH_rebuffer : public IWSHandler
 {
 public:
