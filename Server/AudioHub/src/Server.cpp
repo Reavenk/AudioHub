@@ -183,13 +183,15 @@ bool Server::ExitUserFromSession(WSUserPtr user, ServerLockedGuards& lockGuard)
 			userSession->Shutdown(sessionGuard);
 			this->sessions.erase(userSession->SessionName());
 			std::cout << "Removed session " << userSession->SessionName() << std::endl;
+			
 		}
+		return true;
 	}
 	break;
 	case Session::RemoveResult::NotFound:
 		return false;
-		break;
 	}
+	throw std::logic_error("Encountered unimplemented RemoveUser() state result");
 }
 
 bool Server::RemoveLoggedInUser(WSConPtr wsCon, ServerLockedGuards& lockGuard)
